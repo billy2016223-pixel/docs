@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head><script>(function(firebaseConfig, initialAuthToken, appId) {
+        window.__firebase_config = firebaseConfig;
+        window.__initial_auth_token = initialAuthToken;
+        window.__app_id = appId;
+            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6IjU1ODA5YzI0OTlhNDMxNDcyMjY2ZDljOTY0ZWRiZjAyZTJhMjYwNjgiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIxMTcwMTQzMjIxODc4NTU4NjczMCIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzI3NzEwZjgwZDRiNzk1MTZfYmt0X3RoZW9yeV9wcm9wb3NhbC5odG1sLTM1OCJ9LCJleHAiOjE3NzU5OTQxNzAsImlhdCI6MTc3NTk5MDU3MCwiYWxnIjoiUlMyNTYifQ.hABT2U8HEK_aB4PbynHOpO_W5aA9CJtbqmQkHQcUscJs2cbsZyBVlqkRInR9orr6W6XfUxHVhL_PgAxEtXorgJ_L5z__qx6kQD1qDl4AGMfaUmU44w997YQ3-NMoqsKkioTjq-rSbzEBsOVxkl_8KHz3XLLfJ-tNf7rx8uIn0gsRnov5G3mS1gHkCf-kv6id3o8cHmh_KupTe5X5Bvm1QBShZShqst795xjXmTyD8u-W537uzRKlL7bJOg5Yag8FVUYF93SsncfkSopKcFiXK2Su5Wwv2DNEAjyhp6Kp3DaKBPfL0daI53VDE_pEFKKfwAY5hz5sdhImanpJJoIJCQ","c_27710f80d4b79516_bkt_theory_proposal.html-358")</script><script>(function(){'use strict';var h=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var n=l(this);
+function p(a,b){if(b)a:{var d=n;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&h(d,a,{configurable:!0,writable:!0,value:b})}}function r(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function t(a){return r(a())}
+p("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});p("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
+
+ MIT License
+
+ Copyright (c) 2017-2023 W.Y.
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+*/
+function u(a,b){const d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);const c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var v=(()=>{let a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){const b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let x=null;function y(a={}){return x?x:a.l?x=a.l:x=w(window.getComputedStyle(document.documentElement))}function z(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
+function A(a,b={}){var d;if(!(d=b.width)){d=z(a,"border-left-width");var c=z(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=z(a,"border-top-width"),c=z(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function B(a){return new Promise((b,d)=>{const c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
+function C(a){return t(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
+function D(a,b,d){return t(function*(){const c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return C(c)})}
+var E=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||E(a,b)};function F(a,b){return y(b).map(d=>{const c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
+function G(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=v();try{b.className=`${b.className} ${f}`}catch(k){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=F(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function H(a){return a.search(/^(data:)/)!==-1}function I(a,b,d){return t(function*(){const c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);const e=yield c.blob();return new Promise((f,g)=>{const k=new FileReader;k.onerror=g;k.onloadend=()=>{try{f(d({o:c,result:k.result}))}catch(m){g(m)}};k.readAsDataURL(e)})})}const J={};function K(a,b,d){let c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
+function L(a,b,d){return t(function*(){const c=K(a,b,d.C);if(J[c]!=null)return J[c];d.u&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());let e;try{const f=yield I(a,d.i,({o:g,result:k})=>{b||(b=g.headers.get("Content-Type")||"");return k.split(/,/)[1]});e=`data:${b};base64,${f}`}catch(f){e=d.B||""}return J[c]=e})};const M={P:"application/font-woff",R:"application/font-woff",N:"application/font-truetype",v:"application/vnd.ms-fontobject",H:"image/png",F:"image/jpeg",D:"image/jpeg",A:"image/gif",M:"image/tiff",L:"image/svg+xml",O:"image/webp"};function N(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function O(a){return t(function*(){const b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):B(b)})}function aa(a,b){return t(function*(){if(a.currentSrc){var d=document.createElement("canvas");const c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return B(d)}d=a.poster;d=yield L(d,M[N(d).toLowerCase()]||"",b);return B(d)})}
+function ba(a,b){return t(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield P(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ca(a,b){return t(function*(){return E(a,HTMLCanvasElement)?O(a):E(a,HTMLVideoElement)?aa(a,b):E(a,HTMLIFrameElement)?ba(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
+function da(a,b,d){return t(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;let c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(E(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||E(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>P(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
+return b})}function ea(a,b,d){const c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):y(d).forEach(f=>{let g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);E(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
+function fa(a,b){E(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
+function ha(a,b){return t(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){const g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield P(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
+c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
+function P(a,b,d){return t(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ca(c,b)).then(c=>da(a,c,b)).then(c=>{E(c,Element)&&(ea(a,c,b),G(a,c,":before",b),G(a,c,":after",b),E(a,HTMLTextAreaElement)&&(c.textContent=a.value),E(a,HTMLInputElement)&&c.setAttribute("value",a.value),fa(a,c));return c}).then(c=>ha(c,b)):null})};const Q=/url\((['"]?)([^'"]+?)\1\)/g,ia=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,ja=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function ka(a){const b=[];a.replace(Q,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!H(d))}
+function la(a,b,d,c){return t(function*(){try{const e=d?(new URL(b,d||void 0)).toString():b;let f;f=yield L(e,M[N(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function ma(a,{I:b}){return b?a.replace(ja,d=>{for(;;){const [c,,e]=ia.exec(d)||[],f=c,g=e;if(!g)return"";if(g===b)return`src: ${f};`}}):a}
+function R(a,b,d){return t(function*(){if(a.search(Q)===-1)return a;const c=ma(a,d);return ka(c).reduce((e,f)=>e.then(g=>la(g,f,b,d)),Promise.resolve(c))})};function S(a,b,d){return t(function*(){var c;const e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield R(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function na(a,b){return t(function*(){(yield S("background",a,b))||(yield S("background-image",a,b));(yield S("mask",a,b))||(yield S("-webkit-mask",a,b))||(yield S("mask-image",a,b))||(yield S("-webkit-mask-image",a,b))})}
+function oa(a,b){return t(function*(){const d=E(a,HTMLImageElement);if(d&&!H(a.src)||E(a,SVGImageElement)&&!H(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield L(c,M[N(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.m?(...k)=>{try{f(b.m(...k))}catch(m){g(m)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
+function pa(a,b){return t(function*(){const d=w(a.childNodes).map(c=>T(c,b));yield Promise.all(d).then(()=>a)})}function T(a,b){return t(function*(){E(a,Element)&&(yield na(a,b),yield oa(a,b),yield pa(a,b))})};const U={};function V(a){return t(function*(){var b=U[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return U[a]=b})}function W(a,b){return t(function*(){let d=a.cssText;const c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>t(function*(){let g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return I(g,b.i,({result:k})=>{d=d.replace(f,`url(${k})`);return[f,k]})}));return Promise.all(e).then(()=>d)})}
+function X(a){if(a==null)return[];const b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
+d.lastIndex;b.push(e[0])}return b}
+function qa(a,b){return t(function*(){const d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let k=g+1;f=V(f.href).then(m=>W(m,b)).then(m=>X(m).forEach(q=>{try{e.insertRule(q,q.startsWith("@import")?k+=1:e.cssRules.length)}catch(Da){}})).catch(()=>{});c.push(f)}})}catch(f){const g=a.find(k=>k.href==null)||document.styleSheets[0];e.href!=null&&c.push(V(e.href).then(k=>W(k,b)).then(k=>X(k).forEach(m=>{g.insertRule(m,g.cssRules.length)})).catch(()=>
+{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function ra(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(Q)!==-1)}function sa(a,b){return t(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=w(a.ownerDocument.styleSheets);d=yield qa(d,b);return ra(d)})}
+function ta(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}const d=new Set;b(a);return d}function ua(a,b){return t(function*(){const d=yield sa(a,b),c=ta(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>R(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
+function va(a,b){return t(function*(){const d=b.j!=null?b.j:b.K?null:yield ua(a,b);if(d){const c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function wa(a,b={}){return t(function*(){const {width:d,height:c}=A(a,b),e=yield P(a,b,!0);yield va(e,b);yield T(e,b);u(e,b);return yield D(e,d,c)})}
+function xa(a,b={}){return t(function*(){const {width:d,height:c}=A(a,b);var e=yield wa(a,b);e=yield B(e);const f=document.createElement("canvas"),g=f.getContext("2d"),k=b.G||window.devicePixelRatio||1,m=b.h||d,q=b.g||c;f.width=m*k;f.height=q*k;!b.J&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=
+16384));f.style.width=`${m}`;f.style.height=`${q}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function ya(a,b={}){return t(function*(){return(yield xa(a,b)).toDataURL()})};const za=["gemini.google.com","corp.google.com","proxy.googlers.com"];function Y(){return document.body.querySelectorAll('[class*="animate"]').length>0}function Z(a){return t(function*(){try{return yield ya(a,{h:a.offsetWidth,g:a.offsetHeight})}catch(d){var b=a.offsetHeight;const c=document.createElement("canvas");c.width=a.offsetWidth;c.height=b;return c.toDataURL("image/png")}})}
+function Aa(){return t(function*(){const a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
+function Ba(a){return t(function*(){let b=document.body;if(Y()){var d=yield Aa();b=d;document.body.appendChild(d)}d=yield Z(b);Y()&&document.body.removeChild(b);window.parent.postMessage({type:"SEND_SCREENSHOT",image:d,topOffset:document.documentElement.scrollTop},a.origin)})}function Ca(a){return t(function*(){const b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Z(document.body),topOffset:0};window.parent.postMessage(b,a.origin)})}
+window.addEventListener("message",a=>t(function*(){if(za.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Ba(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ca(a)))}}));
+})();</script><script>(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script>
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script>((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-2.5-flash-image-preview","imageTransformModelName":"gemini-3-pro-image-preview-11-2025","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"]})</script><script>(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script>(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二維超導體的熱力學穩定性與 BKT 拓樸相變探討</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&amp;family=Playfair+Display:ital,wght@0,500;0,700;1,500&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; }
+        p { margin: 0; margin-bottom: 15px; }
+
+        body {
+            background-color: #020617;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+            margin: 0;
+            min-height: 100vh;
+            padding: 20px 0;
+            place-items: center;
+            scroll-behavior: smooth;
+        }
+
+        /* Slide Styles */
+        .slide-container {
+            align-items: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Noto Sans TC', sans-serif;
+            height: 720px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 60px;
+            position: relative;
+            width: 1280px;
+            scroll-snap-align: center;
+        }
+
+        .slide-container::before, .slide-container::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.3;
+            transition: all 0.5s ease;
+        }
+        
+        .slide-container::before {
+            background-color: #38bdf8;
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -100px;
+        }
+        
+        .slide-container::after {
+            background-color: #818cf8;
+            width: 500px;
+            height: 500px;
+            bottom: -150px;
+            right: -100px;
+        }
+
+        .slide-container > * { position: relative; z-index: 1; }
+
+        .slide-container h1, .slide-container h2, .slide-container h3 {
+            color: #f8fafc;
+            font-weight: 700;
+            font-family: 'Playfair Display', 'Noto Sans TC', serif;
+            margin: 0;
+        }
+
+        .slide-container p, .slide-container li, .slide-container .subtitle {
+            color: #cbd5e1;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .slide-container h1 { font-size: 56px; line-height: 1.2; margin-bottom: 20px; }
+        
+        .slide-container .slide-title {
+            color: #38bdf8;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: left;
+            width: 100%;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .slide-container h3 { font-size: 28px; margin-bottom: 15px; color: #818cf8; }
+
+        .slide-container p, .slide-container li, .slide-container .subtitle {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .slide-container .subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            color: #94a3b8;
+            margin: 20px auto;
+        }
+
+        .slide-container .content-area {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #formula-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 8px;
+            border-left: 4px solid #fbbf24;
+            display: flex;
+            justify-content: center;
+        }
+        math {
+            display: math;
+            font-size: 32px;
+            color: #fbbf24;
+            font-family: serif;
+        }
+
+        .title-layout { text-align: center; max-width: 1000px; margin: 0 auto; }
+        .title-layout h1 { color: #38bdf8; }
+
+        .two-column {
+            align-items: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+        }
+
+        .two-column.tiled { align-items: stretch; }
+        .two-column.tiled > div {
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 40px;
+            text-align: left;
+        }
+
+        .two-column ul { list-style: none; margin: 0; padding: 0; }
+        .two-column li { margin-bottom: 20px; padding-left: 30px; position: relative; }
+        .two-column li::before {
+            content: '■';
+            color: #38bdf8;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 14px;
+        }
+
+        .image-wrapper {
+            border-radius: 12px;
+            height: 400px;
+            max-width: 100%;
+            overflow: hidden;
+            width: 100%;
+            border: 2px solid rgba(129, 140, 248, 0.5);
+            background: #0f172a;
+        }
+
+        .image-wrapper img {
+            height: 100%;
+            max-width: 100%;
+            width: 100%;
+            object-fit: contain; 
+            padding: 10px;
+        }
+
+        .tiled-content {
+            align-items: stretch;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .tile {
+            align-items: center;
+            background-color: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: flex-start;
+            padding: 40px 30px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .tile .icon {
+            color: #38bdf8;
+            font-size: 40px;
+            margin-bottom: 25px;
+            align-self: center;
+        }
+        
+        .highlight-text { color: #f8fafc; font-weight: 700; }
+
+        /* --- Gemini AI Assistant Styles --- */
+        .ai-fab {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #fff;
+            font-size: 28px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .ai-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+        }
+
+        /* --- Download Button Styles --- */
+        .download-fab {
+            position: fixed;
+            bottom: 40px;
+            right: 120px; /* 放置在 AI 按鈕的左側 */
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            font-size: 28px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .download-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        .ai-sidebar {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 400px;
+            height: 100vh;
+            background-color: #0f172a;
+            border-left: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .ai-sidebar.open {
+            right: 0;
+        }
+
+        .ai-header {
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-header h3 {
+            color: #fbbf24;
+            font-size: 20px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #cbd5e1;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover { color: #fff; }
+
+        .ai-context-banner {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-actions {
+            padding: 15px 20px;
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ai-action-btn {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            color: #fbbf24;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .ai-action-btn:hover {
+            background: rgba(251, 191, 36, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .ai-chat-area {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-msg p { margin: 0 0 8px 0; color: inherit; font-size: inherit; }
+        .chat-msg p:last-child { margin-bottom: 0; }
+        .chat-msg ul { margin: 8px 0; padding-left: 20px; }
+
+        .msg-ai {
+            align-self: flex-start;
+            background: rgba(30, 41, 59, 0.9);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top-left-radius: 2px;
+        }
+        
+        .msg-ai strong { color: #38bdf8; }
+
+        .msg-user {
+            align-self: flex-end;
+            background: rgba(56, 189, 248, 0.2);
+            color: #e0f2fe;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-top-right-radius: 2px;
+        }
+
+        .ai-input-container {
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-input {
+            flex-grow: 1;
+            background: #020617;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .ai-input:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+
+        .ai-send-btn {
+            background: #38bdf8;
+            color: #020617;
+            border: none;
+            padding: 0 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .ai-send-btn:hover { background: #7dd3fc; }
+
+        /* Loading Animation */
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 12px 16px;
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 12px;
+            align-self: flex-start;
+            border-top-left-radius: 2px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #94a3b8;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+<a href="index.html" id="site-home" title="回文件總覽">← 總覽</a>
+<style>
+#site-home{position:fixed;left:12px;top:12px;z-index:99999;
+ font:600 13px/1 system-ui,"Noto Sans TC",sans-serif;text-decoration:none;
+ color:#fff;background:rgba(17,20,24,.82);border:1px solid rgba(255,255,255,.22);
+ border-radius:999px;padding:8px 14px;backdrop-filter:blur(6px)}
+#site-home:hover{background:#0f6e62;border-color:#0f6e62}
+@media print{#site-home{display:none}}
+</style>
+
+
+<!-- Slide 1: Title_Slide -->
+<div class="slide-container" id="slide1" data-title="首頁：提案摘要">
+    <div class="title-layout">
+        <h3 style="color: #94a3b8; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">物理系期中報告提案</h3>
+        <h1>二維超導體的熱力學穩定性與<br>BKT 拓樸相變之理論探討</h1>
+        <p class="subtitle" style="color: #cbd5e1; margin-top: 40px;">報告人：阮正德 (Jeng-De Ruan)</p>
+        <p class="subtitle" style="color: #94a3b8; margin-top: 5px; font-size: 20px;">指導教授：吳國安 教授</p>
+    </div>
+</div>
+
+<!-- Slide 2: Image_Right_Text_Left (研究動機) -->
+<div class="slide-container" id="slide2" data-title="研究動機：平均場理論在二維失效">
+    <h2 class="slide-title">研究動機：當平均場理論在二維失效</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div>
+                <ul>
+                    <li><span class="highlight-text">三維的成功：</span>講義中提過的 Ginzburg-Landau (GL) 理論在三維塊狀材料中預測相變極度精確。</li>
+                    <li><span class="highlight-text">二維的危機：</span>將系統壓縮至二維薄膜時，強烈的熱漲落 (Thermal Fluctuations) 會發散。</li>
+                    <li><span class="highlight-text">Mermin-Wagner 定理：</span>嚴格的數學證明指出，二維連續對稱系統中不存在傳統的長程有序 (Long-range order)。</li>
+                    <li><span class="highlight-text">核心提問：</span>既然連續對稱性無法被打破，二維超導現象究竟是如何發生的？</li>
+                </ul>
+                <div id="formula-container">
+                    <math xmlns="http://www.w3.org/1998/Math/MathML">
+                      <msub><mi>Z</mi><mi>N</mi></msub>
+                      <mo>=</mo>
+                      <munder><mo>∑</mo><mi>i</mi></munder>
+                      <msup><mi>e</mi><mrow><mo>-</mo><mi>β</mi><msub><mi>E</mi><mi>i</mi></msub></mrow></msup>
+                    </math>
+                </div>
+            </div>
+            <div>
+                <div class="image-wrapper">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/3034299298681975563" alt="Mexican Hat Potential 3D physics plot depicting symmetry breaking">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ✨ Download Button ✨ -->
+<button id="btn-download" class="download-fab" title="下載此簡報為網頁檔">
+    💾
+</button>
+
+<!-- ✨ Gemini AI Assistant UI ✨ -->
+<button id="ai-fab" class="ai-fab" title="開啟物理小幫手">
+    ✨
+</button>
+
+<div id="ai-sidebar" class="ai-sidebar">
+    <div class="ai-header">
+        <h3>✨ 物理小幫手</h3>
+        <button id="close-ai" class="close-btn">×</button>
+    </div>
+    <div class="ai-context-banner">
+        <i class="fa-solid fa-eye"></i> <span>正在閱讀：<strong id="current-slide-label">首頁：提案摘要</strong></span>
+    </div>
+    <div class="ai-actions">
+        <button id="btn-analogy" class="ai-action-btn" title="生成生活化比喻來解釋這頁">
+            ✨ 白話文比喻
+        </button>
+        <button id="btn-quiz" class="ai-action-btn" title="針對這頁產生一道測驗題">
+            ✨ 隨堂測驗
+        </button>
+    </div>
+    <div id="ai-chat-area" class="ai-chat-area">
+        <div class="chat-msg msg-ai">
+            嗨！我是你的專屬物理助教。你可以點擊上方的按鈕讓我幫你把這頁簡報「翻譯」成白話文，或者隨時在下方問我關於簡報上的任何問題喔！
+        </div>
+    </div>
+    <div class="ai-input-container">
+        <input type="text" id="ai-input" class="ai-input" placeholder="對這頁有疑問嗎？發問吧！">
+        <button id="btn-send" class="ai-send-btn">發送</button>
+    </div>
+</div>
+
+<!-- ✨ Gemini API Logic ✨ -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" crossorigin="anonymous"></script>
+<script>
+    // --- State & Setup ---
+    const apiKey = ""; // API Key is injected by environment
+    let currentSlideId = "slide1";
+    let currentSlideText = "";
+    
+    // UI Elements
+    const fab = document.getElementById('ai-fab');
+    const sidebar = document.getElementById('ai-sidebar');
+    const closeBtn = document.getElementById('close-ai');
+    const chatArea = document.getElementById('ai-chat-area');
+    const inputField = document.getElementById('ai-input');
+    const sendBtn = document.getElementById('btn-send');
+    const btnAnalogy = document.getElementById('btn-analogy');
+    const btnQuiz = document.getElementById('btn-quiz');
+    const currentSlideLabel = document.getElementById('current-slide-label');
+
+    // --- Slide Tracking via Intersection Observer ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                currentSlideId = entry.target.id;
+                currentSlideLabel.textContent = entry.target.getAttribute('data-title');
+                
+                // Extract plain text from the slide for context
+                const clone = entry.target.cloneNode(true);
+                // Remove math formulas for simpler prompt reading (optional, but helps keep prompt clean)
+                clone.querySelectorAll('math').forEach(m => m.remove()); 
+                currentSlideText = clone.innerText.replace(/\n+/g, ' ').trim();
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.slide-container').forEach(slide => observer.observe(slide));
+
+    // --- UI Interactions ---
+    fab.addEventListener('click', () => sidebar.classList.add('open'));
+    closeBtn.addEventListener('click', () => sidebar.classList.remove('open'));
+
+    function addMessage(text, isUser = false) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `chat-msg ${isUser ? 'msg-user' : 'msg-ai'}`;
+        if (isUser) {
+            msgDiv.textContent = text;
+        } else {
+            msgDiv.innerHTML = marked.parse(text); // parse markdown from Gemini
+        }
+        chatArea.appendChild(msgDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function showLoading() {
+        const loader = document.createElement('div');
+        loader.className = 'typing-indicator';
+        loader.id = 'ai-loader';
+        loader.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+        chatArea.appendChild(loader);
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    function hideLoading() {
+        const loader = document.getElementById('ai-loader');
+        if (loader) loader.remove();
+    }
+
+    // --- Gemini API Call ---
+    async function callGemini(promptText, systemInstructionText) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        
+        const payload = {
+            contents: [{ parts: [{ text: promptText }] }],
+            systemInstruction: { parts: [{ text: systemInstructionText }] }
+        };
+
+        let retries = 5;
+        let delay = 1000;
+        
+        while (retries > 0) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "抱歉，無法生成回答。";
+                
+            } catch (error) {
+                console.error("Gemini API Error:", error);
+                retries--;
+                if (retries === 0) return "⚠️ 抱歉，目前連線發生問題，請稍後再試一次。";
+                await new Promise(r => setTimeout(r, delay));
+                delay *= 2;
+            }
+        }
+    }
+
+    // --- Features ---
+    
+    // Feature 1: Analogy Generator
+    btnAnalogy.addEventListener('click', async () => {
+        addMessage(`✨ 請用白話文比喻解釋「${currentSlideLabel.textContent}」這頁的內容。`, true);
+        showLoading();
+        
+        const systemPrompt = "你是一位幽默、擅長用日常生活事物來解釋深奧物理概念的教授。請一律使用繁體中文。";
+        const userPrompt = `
+        我目前正在看這頁簡報：「${currentSlideLabel.textContent}」。
+        簡報文字內容為：${currentSlideText}
+        
+        請用一個生動、生活化（例如：塞車、彈簧、煮湯、人群等）的「比喻」，
+        來向一個完全沒有物理背景的高中生解釋這頁簡報的核心概念。
+        請保持簡短，約 100-150 字以內，並標註重點。`;
+        
+        const reply = await callGemini(userPrompt, systemPrompt);
+        hideLoading();
+        addMessage(reply);
+    });
+
+    // Feature 2: Quiz Generator
+    btnQuiz.addEventListener('click', async () => {
+        addMessage(`✨ 針對「${currentSlideLabel.textContent}」出一題隨堂測驗。`, true);
+        showLoading();
+        
+        const systemPrompt = "你是一位嚴謹但友善的大學物理助教。請一律使用繁體中文。";
+        const userPrompt = `
+        根據這頁簡報的內容：「${currentSlideText}」。
+        請出一道簡單的「單選題（包含四個選項 A, B, C, D）」，來測試觀眾有沒有看懂這頁的核心概念。
+        請在題目和選項結束後，空兩行，然後提供正確解答與簡單解釋。`;
+        
+        const reply = await callGemini(userPrompt, systemPrompt);
+        hideLoading();
+        addMessage(reply);
+    });
+
+    // Feature 3: Q&A Chat
+    async function handleSend() {
+        const text = inputField.value.trim();
+        if (!text) return;
+        
+        inputField.value = '';
+        addMessage(text, true);
+        showLoading();
+
+        const systemPrompt = "你是一位精通凝聚態物理與統計力學的教授。在回答時，請一律使用繁體中文，語氣要具有啟發性。如果問題與簡報有關，請務必結合簡報內容來回答。";
+        const userPrompt = `
+        學生的問題是：「${text}」
+        
+        作為參考，學生目前正在觀看的簡報頁面標題是「${currentSlideLabel.textContent}」，
+        該頁的文字內容包含：「${currentSlideText}」。
+        
+        請針對學生的問題給予專業、精確但好懂的解答。如果學生的問題和簡報內容無關，可以一般物理常識回答。`;
+
+        const reply = await callGemini(userPrompt, systemPrompt);
+        hideLoading();
+        addMessage(reply);
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    inputField.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSend();
+    });
+
+    // --- Download Feature Logic ---
+    document.getElementById('btn-download').addEventListener('click', () => {
+        // 取得當前整個網頁的 HTML 結構
+        const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        // 建立 Blob 物件
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        
+        // 建立隱藏的 a 標籤來觸發下載
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '物理系期中提案_阮正德.html';
+        document.body.appendChild(a);
+        a.click();
+        
+        // 清理資源
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+
+</script>
+
+</body></html>

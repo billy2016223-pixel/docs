@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>開槽迴旋管圖表註記</title><style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;
+ background:#121516;color:#E8ECEB;
+ font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif}
+.box{width:min(420px,92vw);background:#191D1E;border:1px solid #262B2C;
+ border-radius:6px;padding:28px 26px;text-align:center;
+ box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.lk{font-size:30px;line-height:1}
+h1{font-size:19px;margin:12px 0 6px;font-weight:700}
+p{margin:0 0 18px;color:#8C9492;font-size:14px;line-height:1.7}
+input{width:100%;padding:11px 13px;font:inherit;font-size:15px;
+ background:#121516;color:#E8ECEB;border:1px solid #39403F;border-radius:4px}
+input:focus{outline:2px solid #4FC3AF;outline-offset:1px;border-color:#4FC3AF}
+button{width:100%;margin-top:10px;padding:11px;font:inherit;font-weight:700;
+ font-size:15px;cursor:pointer;background:#4FC3AF;color:#07201C;border:0;
+ border-radius:4px}
+button:hover{background:#6FD6C4}
+.err{color:#F08A7A;font-size:13.5px;min-height:20px;margin-top:10px}
+a.back{display:inline-block;margin-top:16px;color:#8C9492;font-size:13px}
+</style><script src="app.js"></script></head><body>
+<div class="box" id="gate"><div class="lk">🔒</div><h1>開槽迴旋管圖表註記</h1><p>這份文件需要密碼。解開後同一個分頁內其他鎖住的文件也會一併開啟。</p><input id="pw" type="password" autocomplete="current-password" placeholder="密碼" autofocus><button id="go">解鎖</button><div class="err" id="err"></div><a class="back" href="index.html">← 回總覽</a></div>
+<script>
+var SLUG="gyro-figs";
+function open_(){return SiteLock.openDoc(SLUG).catch(function(){document.getElementById("err").textContent="解密失敗，檔案可能不完整。";});}
+SiteLock.isUnlocked().then(function(u){if(u)open_();});
+function go(){var p=document.getElementById("pw").value;var e=document.getElementById("err");e.textContent="解鎖中…";SiteLock.unlock(p).then(function(ok){if(ok)open_();else{e.textContent="密碼不正確。";}});}
+document.getElementById("go").onclick=go;
+document.getElementById("pw").addEventListener("keydown",function(ev){if(ev.key==="Enter")go();});
+</script></body></html>

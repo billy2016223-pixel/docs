@@ -1,0 +1,320 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>市場計算理論</title></head><body>
+<a href="index.html" id="site-home" title="回文件總覽">← 總覽</a>
+<style>
+#site-home{position:fixed;left:12px;top:12px;z-index:99999;
+ font:600 13px/1 system-ui,"Noto Sans TC",sans-serif;text-decoration:none;
+ color:#fff;background:rgba(17,20,24,.82);border:1px solid rgba(255,255,255,.22);
+ border-radius:999px;padding:8px 14px;backdrop-filter:blur(6px)}
+#site-home:hover{background:#0f6e62;border-color:#0f6e62}
+@media print{#site-home{display:none}}
+</style>
+
+<title>市場計算理論</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script defer src="mathjax/tex-svg-full.js"></script>
+<style>
+/* 版面概念:實驗紀錄本。每節由推導與右側性質標記組成,驗證數據以等寬字列出 */
+:root {
+  --bg: #f1f5f6; --surface: #ffffff; --fg: #15232c; --muted: #52646f; --line: #cfdadf;
+  --accent: #1d4fa3; --identity: #0b6b55; --cond: #1d4fa3; --assume: #a35a00; --open: #a3283f;
+  --display: "Noto Serif TC", "Songti TC", serif; --body: "Noto Sans TC", "Microsoft JhengHei", sans-serif; --mono: "JetBrains Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f171c; --surface: #172229; --fg: #e4edf0; --muted: #9db0ba; --line: #2d3e48;
+  --accent: #86aef0; --identity: #57c9a8; --cond: #86aef0; --assume: #e6ab5c; --open: #f08a9d; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f171c; --surface: #172229; --fg: #e4edf0; --muted: #9db0ba; --line: #2d3e48;
+  --accent: #86aef0; --identity: #57c9a8; --cond: #86aef0; --assume: #e6ab5c; --open: #f08a9d; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.85 var(--body); }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 48px 96px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1 { font: 800 clamp(34px, 7vw, 54px)/1.15 var(--display); margin: 0 0 12px; text-wrap: balance; }
+.lede { font-size: 18px; color: var(--muted); max-width: 40em; margin: 0; }
+h2 { font: 800 25px/1.35 var(--display); margin: 56px 0 10px; text-wrap: balance; }
+h2 .n { font: 600 14px var(--mono); color: var(--accent); display: block; letter-spacing: .04em; margin-bottom: 4px; }
+h3 { font: 700 17px/1.5 var(--body); margin: 26px 0 4px; }
+p { margin: 10px 0; max-width: 44em; }
+.eq { overflow-x: auto; overflow-y: hidden; padding: 4px 0; }
+.tag { display: inline-block; font: 600 12px/1.6 var(--mono); padding: 0 8px; border: 1px solid currentColor; border-radius: 3px; margin-right: 6px; }
+.t-id { color: var(--identity); } .t-co { color: var(--cond); } .t-as { color: var(--assume); } .t-op { color: var(--open); }
+.check { background: var(--surface); border: 1px solid var(--line); padding: 10px 14px; margin: 14px 0; font: 400 13.5px/1.75 var(--mono); overflow-x: auto; }
+.check .h { font-weight: 600; color: var(--identity); display: block; }
+.scroll { overflow-x: auto; margin: 14px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 13px; }
+.num { font-family: var(--mono); white-space: nowrap; }
+.layers { display: grid; gap: 6px; margin: 16px 0; }
+.layer { display: grid; grid-template-columns: minmax(0, 11em) minmax(0, 1fr); gap: 14px; background: var(--surface); border: 1px solid var(--line); padding: 10px 14px; font-size: 14.5px; }
+.layer b { font-weight: 700; }
+@media (max-width: 560px) { .layer { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+.pred { border-top: 1px solid var(--line); padding: 12px 0; }
+.pred .pid { font: 600 13px var(--mono); color: var(--accent); }
+.fail { color: var(--open); }
+</style>
+
+<div class="wrap">
+<h1>市場計算理論</h1>
+<p class="lede">把全球經濟寫成一個可以同化資料、可以回到過去、可以往未來做系綜預測的動力系統。這份文件是理論第一版,所有推導都由第一原理寫出,沒有參照書籍。</p>
+
+<h2><span class="n">摘要</span>目前站得住的,和還站不住的</h2>
+<p>我得到的核心結論是,經濟裡有一部分方程式和大氣的守恆律一樣硬,就是會計恆等式。另一部分完全未知,就是人的決策。氣象類比能成立的範圍,大約就到這條分界線。</p>
+<p>第二個結論是,供應鏈衝擊、信用傳染、事件自激、槓桿賣壓、預測反身性這五個機制,放大倍數都是同一個形式 \(1/(1-g)\)。因此「離崩潰多近」可以用同一個量衡量。這是線性回饋的數學結果,還不是經過實證的定律。</p>
+<p>第三個結論對資料量的期待是降溫。初始資料精度提高十倍,可預測時限只增加固定的 \(\ln 10/\lambda\)。如果是緩慢的信用循環,百年歷史的獨立樣本可能只有個位數。資料再多也不能取代結構約束。</p>
+<p>下面的模擬只驗證數學推導正確,沒有任何一項證明真實市場遵守這些方程式。實證檢驗列在第 11 節,目前只做了 P1:槓桿放大的主預測在加密市場成立,但 g 的比值形式被否定,飽和沒有檢定力。</p>
+<p>
+<span class="tag t-id">恆等式</span>定義上必然成立
+<br><span class="tag t-co">條件定理</span>在所述假設下可嚴格導出
+<br><span class="tag t-as">模型假設</span>我選的形式,可能是錯的
+<br><span class="tag t-op">未解決</span>目前沒有答案
+</p>
+
+<h2><span class="n">1 狀態空間</span>系統由什麼組成</h2>
+<p>令實體 \(i=1,\dots,N\) 為節點,涵蓋政府、企業、投資機構、個人。流動層 \(a\) 包含貨幣、產品、資源等。實體的實物存量為 \(R_i^a\),實體 \(i\) 對 \(j\) 的金融債權為 \(C_{ij}\),價格向量為 \(p\)。整體狀態是</p>
+<div class="eq">\[ x(t) = \big(\{R_i^a\},\ \{C_{ij}\},\ p,\ \{e_i\},\ \theta\big) \]</div>
+<p>其中 \(e_i\) 是實體對未來的預期,\(\theta\) 是緩慢變化的結構參數,例如技術、法規、合約網路。預期必須放進狀態,理由在第 5 節。</p>
+<p>你列的資料全部可以對應到這些符號,所以資料收集有了明確目標。</p>
+<div class="scroll"><table>
+<tr><th>你列的資料</th><th>數學角色</th><th>符號</th></tr>
+<tr><td>財報</td><td>節點存量與債權的觀測</td><td>\(y=h(R,C)\)</td></tr>
+<tr><td>上下游</td><td>投入產出係數</td><td>\(A_{ij}\)</td></tr>
+<tr><td>金流、產品流、資源流</td><td>各層邊上的流量</td><td>\(J_{ij}^a\)</td></tr>
+<tr><td>政府文件</td><td>外生介入與規則改變</td><td>\(u(t),\ \theta\)</td></tr>
+<tr><td>產業結構</td><td>粗粒化的分塊方式</td><td>\(\mathcal C\)</td></tr>
+<tr><td>技術優勢</td><td>生產函數參數</td><td>\(F_i(\cdot\,;\theta_i)\)</td></tr>
+<tr><td>未來困境</td><td>已知的未來合約流與到期牆</td><td>\(J^{\rm contract}(t>t_0)\)</td></tr>
+<tr><td>潛在危機</td><td>事件風險率與傳播矩陣</td><td>\(\lambda_i(x),\ M\)</td></tr>
+<tr><td>政治關係</td><td>邊的容量或開關</td><td>\(c_{ij}(t)\)</td></tr>
+</table></div>
+
+<h2><span class="n">2 守恆結構</span>總量到底什麼不變</h2>
+<p><span class="tag t-id">恆等式</span>每一筆債權同時是另一方的負債。實體 \(i\) 的淨財富是</p>
+<div class="eq">\[ W_i = p\cdot R_i + \sum_j \left(C_{ij}-C_{ji}\right) \]</div>
+<p>把所有實體相加,雙重求和裡的 \(C_{ij}\) 與 \(C_{ji}\) 兩兩相消,所以</p>
+<div class="eq">\[ \sum_i \sum_j\left(C_{ij}-C_{ji}\right)=0,\qquad \sum_i W_i = p\cdot\sum_i R_i \]</div>
+<p>這回答了你的第一個直覺。全球淨金融資產永遠恰好為零,這才是真正不變的總量。信用創造只會放大總額 \(\sum C_{ij}\),也就是槓桿,不會增加全球淨財富。全球真實財富只等於實物存量乘上價格。對時間微分得到</p>
+<div class="eq">\[ \frac{d}{dt}\sum_i W_i = \underbrace{p\cdot\sum_i\sigma_i}_{\text{生產減消費與耗損}} + \underbrace{\dot p\cdot\sum_i R_i}_{\text{價格重估}} \]</div>
+<p>全球財富只有兩種改變方式。第一項是你說的「有創造才有價值」。第二項沒有任何實物發生變化,財富卻會增減,這是價值憑空出現與消失的來源。兩項的相對大小要用實際資料量測,我還沒有量。</p>
+<p>各層的動力學是網路上的連續方程式,\(\sigma\) 為源項</p>
+<div class="eq">\[ \frac{dS_i^a}{dt} = \sum_j\left(J_{ji}^a-J_{ij}^a\right)+\sigma_i^a \]</div>
+<div class="check"><span class="h">T1 驗證 50 個實體,約兩萬筆隨機借貸、還款、減記</span>|Σ 淨金融資產| = 2.0e-13,總債權 = 9852,兩者差 16 個數量級。這項檢查只確認程式與代數無誤,本質上是恆等式。</div>
+
+<h2><span class="n">3 流量</span>哪些流量真正重要</h2>
+<h3>梯度流與循環流</h3>
+<p><span class="tag t-co">條件定理</span>把網路的關聯矩陣記為 \(B\),\((BJ)_i\) 為節點淨流入。任何流量都能唯一分解成正交的兩部分</p>
+<div class="eq">\[ J = B^{\mathsf T}\phi + J_{\rm c},\qquad BJ_{\rm c}=0,\qquad \|J\|^2=\|B^{\mathsf T}\phi\|^2+\|J_{\rm c}\|^2 \]</div>
+<p>其中 \(\phi\) 由 \(BB^{\mathsf T}\phi=BJ\) 解出。循環流 \(J_{\rm c}\) 對任何節點的存量都沒有影響。這有實際用途,例如 A 投資 B、B 向 C 買貨、C 再向 A 買貨這類循環融資,營收都增加,但淨資金位置完全不變。\(J_{\rm c}\) 佔比異常升高,可以當成營收品質或泡沫的結構指標。\(\phi\) 則是資金流動的位勢,扮演電路中電壓的角色。</p>
+<div class="check"><span class="h">T2 驗證 隨機網路 30 節點</span>循環分量的最大散度 1.3e-14,正交性 7.5e-15,能量恆等式誤差 2.8e-14。</div>
+
+<h3>本構關係的三種類型</h3>
+<p>連續方程式還不封閉,必須說明 \(J\) 由什麼決定,這是整個理論的難點。我把流量拆成三類,它們的可預測性依序下降</p>
+<div class="eq">\[ J_{ij} = J_{ij}^{\rm contract}(t) + J_{ij}^{\rm struct}(x;\theta) + J_{ij}^{\rm disc}(x,e) \]</div>
+<p>合約流可以從條款算出。債務 \(D\) 服從 \(\dot D = rD-a\),只有違約才會打破它。</p>
+<p><span class="tag t-co">條件定理</span>結構流由投入產出約束。若產量 \(x\) 中有比例 \(A_{ij}\) 被用於上游投入,則 \(x=Ax+f\),即</p>
+<div class="eq">\[ x=(I-A)^{-1}f,\qquad \rho(A)<1 \]</div>
+<p><span class="tag t-as">模型假設</span>裁量流是選擇問題。實體 \(i\) 把預算 \(B_i\) 分配到各選項,若我只知道平均效用 \(\bar U\),而不想假設更多資訊,最不偏的分配就是在約束下讓熵最大</p>
+<div class="eq">\[ \max_\pi\ -\sum_j\pi_j\ln\pi_j \quad\text{s.t.}\quad \sum_j\pi_j=1,\ \ \sum_j\pi_jU_j=\bar U \]</div>
+<p>對拉格朗日函數求導,\(-\ln\pi_j-1+\alpha+\beta U_j=0\),得到</p>
+<div class="eq">\[ J_{ij}^{\rm disc}=B_i\,\frac{e^{\beta U_{ij}}}{\sum_k e^{\beta U_{ik}}} \]</div>
+<p>\(\beta\) 有明確的物理意義,是決策的逆溫度。\(\beta\to\infty\) 代表所有人都選最優,\(\beta\to0\) 代表隨機分配。恐慌時市場可能出現兩種極端,群聚轉向單一避險資產(高 \(\beta\)),或資訊失效(低 \(\beta\))。效用 \(U\) 的具體形式仍未知。</p>
+<div class="check"><span class="h">T4 驗證</span>數值最佳化不使用閉式解,與上式的最大差異 8.9e-10。</div>
+
+<h2><span class="n">4 最小封閉模型</span>四條方程式就能看到一個經濟</h2>
+<p><span class="tag t-co">條件定理</span>我先確認整個骨架可以實際封閉。考慮政府與家戶兩部門,政府支出 \(G\),稅率 \(\tau\),家戶財富 \(V\),消費依賴可支配所得與財富</p>
+<div class="eq">\[ Y=C+G,\quad C=\alpha_1(1-\tau)Y+\alpha_2V,\quad \dot V=(1-\tau)Y-C,\quad \dot D=G-\tau Y \]</div>
+<p>把第一式代入可得 \(\dot V=\dot D\),政府負債恰好是家戶資產,守恆律自動成立。解出 \(Y=(\alpha_2V+G)/[1-\alpha_1(1-\tau)]\),再令 \(\dot V=0\),得到穩態</p>
+<div class="eq">\[ Y^*=\frac{G}{\tau},\qquad V^*=\frac{(1-\alpha_1)(1-\tau)}{\alpha_2}Y^* \]</div>
+<p>線性化得到鬆弛時間</p>
+<div class="eq">\[ T_{\rm rel}=\frac{1-\alpha_1(1-\tau)}{\alpha_2\tau} \]</div>
+<p>這個小模型的意義在於,穩態不是假設均衡得來的,而是存量流量一致性強迫出來的。財政赤字只要不為零,存量就會一直累積,所以長期產出只由 \(G/\tau\) 決定。</p>
+<div class="check"><span class="h">T3 驗證 G=20, τ=0.2, α₁=0.6, α₂=0.4</span>Y* 解析 100,模擬 99.994。V* 解析 80,模擬 79.992(t=60 尚未完全收斂)。T_rel 解析 6.500,模擬 6.4995。|V-D| 最大 3.4e-13。</div>
+
+<h2><span class="n">5 預期回饋</span>颱風不會讀氣象預報,市場會</h2>
+<p><span class="tag t-co">條件定理</span>當價格取決於對下一期價格的預期,\(p_t=aE_t[p_{t+1}]+bz_t\),其中 \(z\) 是基本面。反覆代入得到</p>
+<div class="eq">\[ p_t=b\sum_{k\ge0}a^kE_t[z_{t+k}]+c_t,\qquad E_t[c_{t+1}]=c_t/a \]</div>
+<p>第一項是基本面的貼現和。第二項是齊次解,也就是泡沫,它完全自我實現,基本面資料原則上無法排除它。價格因此本身就是對未來的編碼,這也是系統必須把 \(e_i\) 當狀態的原因。</p>
+<p>現在加入模型本身的影響。假如預測 \(\hat y\) 有比例 \(s\) 的資金依循,每單位造成 \(\gamma\) 的影響,結果是 \(y=a+s\gamma\hat y\)。發布時必須滿足自洽條件 \(\hat y=y\),解得</p>
+<div class="eq">\[ y^*=\frac{a}{1-s\gamma} \]</div>
+<p>若 \(s\gamma>1\),逐次修正會發散,預測會推動現實遠離它自己。若依循者是在套利,影響為負,報酬從 \(r_0\) 被壓到</p>
+<div class="eq">\[ r^*=\frac{r_0}{1+s\lambda} \]</div>
+<p>這個式子對系統有直接的限制。規模越大、用的人越多,預測到的超額報酬就越小。如果這套系統被廣泛使用,它就會改變自己的預測對象,所以必須把 \(s\) 納入模型。</p>
+<div class="check"><span class="h">T5 驗證 r₀=1, λ=0.5, s=0, 0.5, 1, 2, 4</span>迭代求解得 1.000, 0.800, 0.667, 0.500, 0.333,與閉式一致。g=0.5 收斂至 2.0,g=1.2 的逐次修正發散。</div>
+
+<h2><span class="n">6 臨界</span>危機是系統離臨界多近</h2>
+<h3>傳播</h3>
+<p><span class="tag t-co">條件定理</span>令 \(M_{ij}\) 為 \(i\) 失效平均引發 \(j\) 失效的次數,從 \(i\) 開始的總失效數期望為各代相加</p>
+<div class="eq">\[ \mathbb E[S_i]=\Big[\sum_{k\ge0}M^k\mathbf 1\Big]_i=\big[(I-M)^{-1}\mathbf 1\big]_i,\qquad \rho(M)<1 \]</div>
+<p>單一類型、後代服從泊松分布、平均為 \(\mu\) 時,規模分布有閉式</p>
+<div class="eq">\[ P(S=n)=\frac{e^{-\mu n}(\mu n)^{n-1}}{n!},\qquad \mathbb E[S]=\frac1{1-\mu} \]</div>
+<p>在 \(\mu=1\),\(P(S\ge n)\sim n^{-1/2}\),平均規模發散。此時系統沒有固有尺度,小事件和大危機由同一個機制產生。這也提供了一個檢驗,失效規模分布的尾部是否隨 \(\rho(M)\) 上升而變厚。</p>
+<div class="check"><span class="h">T6, T7 驗證</span>μ=0.5 平均 2.017(理論 2)。μ=0.9 平均 10.05(理論 10)。μ=1 的尾部斜率 -0.503(理論 -0.5)。六類型網路 ρ=0.8,最大相對誤差 1.7%。</div>
+
+<h3>事件隨狀態變化</h3>
+<p><span class="tag t-as">模型假設</span>潛在危機以點過程描述,基礎風險率由狀態決定,再加上過去事件的激發</p>
+<div class="eq">\[ \lambda_i(t)=\lambda_i^0(x(t))+\sum_j\int_{-\infty}^t\varphi_{ij}(t-s)\,dN_j(s),\qquad \bar\lambda=(I-G)^{-1}\lambda^0,\quad G_{ij}=\int_0^\infty\varphi_{ij} \]</div>
+<p>政治衝突、監管、技術替代都以這種方式進入系統,作用於 \(\lambda^0\) 或邊容量 \(c_{ij}\)。</p>
+<div class="check"><span class="h">T13 驗證 三類事件,ρ(G)=0.636</span>平均事件率理論 1.344, 2.203, 0.938。模擬 1.342, 2.201, 0.939。</div>
+
+<h3>清算</h3>
+<p><span class="tag t-co">條件定理</span>負債總額 \(b_i\),分配比例 \(\Pi_{ij}\),外部資產 \(e_i\),支付向量是下式的不動點</p>
+<div class="eq">\[ P=\min\big(b,\ e+\Pi^{\mathsf T}P\big) \]</div>
+<p>右側對 \(P\) 單調,從上界與下界迭代都會收斂。違約時內部支付會減少,但全體淨值總和仍等於 \(\sum e_i\),第 2 節的恆等式在違約中也不會被破壞。違約重新分配損失,債權總額則被銷毀。</p>
+<div class="check"><span class="h">T14 驗證 30 節點</span>由上、由下兩解之差 3.7e-13,22 家違約,總缺口 74.3,淨值和與外部資產之差 1.8e-15。</div>
+
+<h3>槓桿賣壓</h3>
+<p><span class="tag t-co">條件定理</span>機構持有資產 \(A\),目標槓桿 \(L=A/E\),價格下跌 \(\delta\)。權益減少 \(A\delta\),目標資產變成 \(L(E-A\delta)=A-LA\delta\),實際持有 \(A(1-\delta)\),因此必須賣出</p>
+<div class="eq">\[ s=A(1-\delta)-(A-LA\delta)=A(L-1)\delta \]</div>
+<p>市場深度為 \(K\) 時,賣出造成額外跌幅 \(s/K\)。每一輪的放大比例是</p>
+<div class="eq">\[ g=\frac{A(L-1)}{K},\qquad \delta_{\rm total}=\frac{\delta}{1-g} \]</div>
+<p>這個式子把崩盤風險濃縮成一個可以觀測的量,即受迫部位規模除以市場深度。它也對應到你先前接針實測看到的流動性真空。</p>
+<div class="scroll"><table>
+<tr><th>L</th><th>K</th><th>g</th><th>放大倍數 模擬</th><th>放大倍數 理論</th></tr>
+<tr class="num"><td class="num">10</td><td class="num">18</td><td class="num">0.500</td><td class="num">2.000</td><td class="num">2.000</td></tr>
+<tr><td class="num">10</td><td class="num">12</td><td class="num">0.750</td><td class="num">3.998</td><td class="num">4.000</td></tr>
+<tr><td class="num">10</td><td class="num">10</td><td class="num">0.900</td><td class="num">9.957</td><td class="num">10.000</td></tr>
+<tr><td class="num">5</td><td class="num">8</td><td class="num">0.500</td><td class="num">2.000</td><td class="num">2.000</td></tr>
+<tr><td class="num">20</td><td class="num">40</td><td class="num">0.475</td><td class="num">1.905</td><td class="num">1.905</td></tr>
+</table></div>
+<p>有一個推導時沒料到的結果。上式只在衝擊極小時成立。衝擊變大時,去槓桿會讓 \(A\) 跟著縮小,\(g\) 隨之下降,放大倍數反而減少。線性公式因此會高估大衝擊,需要改用完整的非線性迭代。</p>
+<div class="scroll"><table>
+<tr><th>初始衝擊 δ(g=0.9)</th><th>最終總跌幅</th><th>實際放大倍數</th></tr>
+<tr><td class="num">0.01%</td><td class="num">0.096%</td><td class="num">9.6</td></tr>
+<tr><td class="num">0.1%</td><td class="num">0.76%</td><td class="num">7.6</td></tr>
+<tr><td class="num">0.5%</td><td class="num">2.54%</td><td class="num">5.1</td></tr>
+<tr><td class="num">1%</td><td class="num">4.07%</td><td class="num">4.1</td></tr>
+<tr><td class="num">2%</td><td class="num">6.43%</td><td class="num">3.2</td></tr>
+</table></div>
+<p>這個模型只有單一機構,衝擊為線性,沒有逢低承接者,也沒有測試 \(g\ge1\) 的區域。多機構共同持有時的結果可能不同。</p>
+
+<h3>統一形式</h3>
+<div class="scroll"><table>
+<tr><th>機制</th><th>放大因子</th><th>回饋量 g</th></tr>
+<tr><td>供應鏈</td><td>\((I-A)^{-1}\)</td><td>\(\rho(A)\),上游投入比例</td></tr>
+<tr><td>信用傳染</td><td>\((I-M)^{-1}\)</td><td>\(\rho(M)\),曝險除以權益</td></tr>
+<tr><td>事件自激</td><td>\((I-G)^{-1}\)</td><td>\(\rho(G)\),每事件引發數</td></tr>
+<tr><td>槓桿賣壓</td><td>\(1/(1-g)\)</td><td>受迫部位除以深度</td></tr>
+<tr><td>預測反身性</td><td>\(1/(1-s\gamma)\)</td><td>依循比例乘影響力</td></tr>
+</table></div>
+<p>這些機制還可以組成一個耦合矩陣,讓整個系統只有一個最大特徵值 \(g_{\max}\)。各層單獨看都穩定,耦合後仍可能超過 1,這是跨領域危機的數學形式。計算 \(g_{\max}\) 和它的特徵向量,就能得到離臨界的距離,以及最脆弱的傳導路徑。這個推論目前只是由形式推得,耦合矩陣要如何估計仍未解決。</p>
+
+<h2><span class="n">7 粗粒化</span>把全球併成幾個部門時會失去什麼</h2>
+<p><span class="tag t-id">恆等式</span>把實體併成塊 \(I\),塊內流量在求和時完全相消,只留下跨塊流量。所以守恆律在任何尺度都精確成立,會計骨架可以自由縮放。</p>
+<p><span class="tag t-co">條件定理</span>行為方程式就不行了。令線性動力 \(\dot z=\mathcal Az\),塊加總算子為 \(\mathcal C\)。合併後的系統能精確封閉,其充要條件是存在 \(\hat A\) 使得</p>
+<div class="eq">\[ \mathcal C\mathcal A=\hat A\mathcal C \]</div>
+<p>白話地說,同一塊的成員必須對外界有相同的總反應。一般情況不成立。把狀態分成看得見的 \(X\) 和沒收集到的 \(Y\)</p>
+<div class="eq">\[ \dot X=A_{11}X+A_{12}Y,\qquad \dot Y=A_{21}X+A_{22}Y \]</div>
+<p>解出 \(Y\) 再代回去,得到只含 \(X\) 的精確方程式</p>
+<div class="eq">\[ \dot X(t)=A_{11}X(t)+\int_0^tA_{12}e^{A_{22}(t-s)}A_{21}X(s)\,ds+A_{12}e^{A_{22}t}Y(0) \]</div>
+<p>這條式子解釋了市場兩個長期現象的可能來源。沒觀測到的變數在被積分掉後會變成記憶,即第二項,以及看似隨機的雜訊,即第三項。部分所謂的噪音和長記憶,可能只是我們漏看了變數。當 \(Y\) 遠快於 \(X\) 時,記憶消失,留下</p>
+<div class="eq">\[ \dot X=\left(A_{11}-A_{12}A_{22}^{-1}A_{21}\right)X \]</div>
+<p>這就是時間尺度階層的數學依據,快變數被慢變數支配,但誤差與尺度比 \(\varepsilon\) 成正比。</p>
+<div class="check"><span class="h">T9 驗證</span>含記憶方程式誤差 2.5e-6,捨棄記憶誤差 0.168。ε = 0.1, 0.01, 0.001 時 Schur 近似誤差 0.0179, 0.00178, 0.000178,嚴格與 ε 成正比。滿足條件時合併誤差 5.3e-16,加擾動破壞條件後誤差 1.22。</div>
+
+<h2><span class="n">8 現在、過去、未來</span>同一個數學物件的三種切片</h2>
+<p><span class="tag t-co">條件定理</span>系統是狀態空間模型</p>
+<div class="eq">\[ x_{t+1}=f(x_t,u_t;\theta)+\eta_t,\qquad y_t=h(x_t)+\epsilon_t \]</div>
+<p>你要求的可調性可以用單一個物件表達,即 \(\hat x(t\mid\tau)\),在知識時間 \(\tau\) 之前的所有資料下,對時刻 \(t\) 狀態的估計。</p>
+<div class="scroll"><table>
+<tr><th>操作</th><th>條件</th><th>意義</th></tr>
+<tr><td>回到過去,當時所知</td><td>\(\hat x(t\mid t),\ t\lt\text{今}\)</td><td>重現當時能知道的一切,回測不偷看未來</td></tr>
+<tr><td>回到過去,事後重建</td><td>\(\hat x(t\mid\text{今}),\ t\lt\text{今}\)</td><td>用後來資料修正歷史</td></tr>
+<tr><td>現在</td><td>\(\hat x(\text{今}\mid\text{今})\)</td><td>帶不確定度的當下估計</td></tr>
+<tr><td>未來</td><td>\(\hat x(t\mid\text{今}),\ t\gt\text{今}\)</td><td>系綜預測的機率分布</td></tr>
+<tr><td>情境</td><td>\(\hat x(t\mid\tau,\ \mathrm{do}(u))\)</td><td>強制改變 \(u\),例如斷供、升息</td></tr>
+</table></div>
+<p>所以每筆資料都要記錄兩個時間,事件發生時間 \(t\) 與公開時間 \(\tau\)。財報重編、數據修正都因此不會汙染回測。情境推演要切斷 \(u\) 的原因,只保留它的結果,這需要因果模型,單靠相關性做不到。而且參數 \(\theta\) 本身可能隨政策改變,歷史擬合出來的關係在介入時未必成立。</p>
+<h3>守恆律如何填補缺失資料</h3>
+<p><span class="tag t-co">條件定理</span>對估計值 \(\hat x\)(共變異數 \(P\))施加部門帳平衡約束 \(H x=c\),最佳投影是</p>
+<div class="eq">\[ \tilde x=\hat x-PH^{\mathsf T}(HPH^{\mathsf T})^{-1}(H\hat x-c),\qquad \tilde P=P-PH^{\mathsf T}(HPH^{\mathsf T})^{-1}HP \]</div>
+<p>第二式扣掉的是半正定矩陣,所以約束只會讓不確定度降低,不需要任何新資料。當某部門完全沒有資料,其不確定度會變成其他部門誤差的合成,等於能從別人的帳推算它。</p>
+<div class="check"><span class="h">T10 驗證 6 部門,誤差標準差 1, 1, 2, 2, 3, 3</span>總 MSE 28.02 降至 21.02(理論 28、21),下降 25%,相當於免費得到一條方程式。將一個部門設為幾乎無資料,其標準差從 1000 降到 2.236(理論 √5)。</div>
+
+<h2><span class="n">9 可預測的上限</span>資料再多也有天花板</h2>
+<p><span class="tag t-co">條件定理</span>若誤差以 Lyapunov 指數 \(\lambda\) 增長 \(\varepsilon(t)=\varepsilon_0e^{\lambda t}\),達到容忍值 \(\Delta\) 的時限是</p>
+<div class="eq">\[ T_p=\frac1\lambda\ln\frac{\Delta}{\varepsilon_0} \]</div>
+<p>資料精度每提升十倍,只增加 \(\ln10/\lambda\) 的時間。不同尺度的 \(\lambda\) 應該不同,因此第一個要量的東西是每個變數、每個尺度的 \(T_p\)。量出來後才知道這個系統對什麼有預測力。</p>
+<div class="check"><span class="h">T11 驗證 Lorenz 系統,僅作為混沌檢驗臺,不代表市場</span>初始誤差 1e-1 到 1e-6,平均時限 3.39, 5.59, 8.29, 10.73, 13.44, 15.94,線性遞增,反推 λ=0.908。每提升十倍只多 2.54 時間單位。</div>
+<p><span class="tag t-co">條件定理</span>更根本的問題是樣本。若序列的自相關為 \(\rho\),有效獨立樣本數是</p>
+<div class="eq">\[ T_{\rm eff}=T\,\frac{1-\rho}{1+\rho} \]</div>
+<p>舉例來說,若信用循環的相關時間約 7 年(這個值只是示意),年資料 \(\rho=e^{-1/7}\approx0.87\),一百年歷史的 \(T_{\rm eff}\) 只有約 7 個。而且純噪音下,\(p\) 個參數的樣本內解釋力也有</p>
+<div class="eq">\[ \mathbb E[R^2_{\rm in}]=\frac{p}{T-1} \]</div>
+<p>這直接衝擊「用極大參數推導未來」這個構想。慢尺度上最重要的動力,偏偏樣本最少。出路有三條:用會計恆等式與物理約束消去自由度,用微觀截面資料(很多企業、很多國家)代替時間序列,並且讓模型只在短尺度學習行為,長尺度只靠結構推演。</p>
+<div class="check"><span class="h">T12 驗證</span>T=100, p=20:R² 模擬 0.2008,理論 0.2020。ρ=0.9, T=2000:T_eff 模擬 104.4,理論 105.3。</div>
+
+<h2><span class="n">10 整體架構</span>理論對應的系統分層</h2>
+<p>完整的閉合方程組如下,資料由下層流向上層,預測再回饋到狀態。</p>
+<div class="eq">\[ \begin{aligned}
+\dot S_i^a &= \sum_j\big(J_{ji}^a-J_{ij}^a\big)+\sigma_i^a(x;\theta) && \text{守恆}\\
+J_{ij}^a &= \min\big(c_{ij}^a(t),\ J^{\rm contract}+J^{\rm struct}(x;\theta)+J^{\rm disc}(x,e;\beta)\big) && \text{本構與容量}\\
+\dot p &= \kappa\,\frac{\text{淨需求}(x,e)}{K(x)} && \text{價格}\\
+e_i(t) &= \mathcal E_i\big[x(t{+}\cdot)\mid\mathcal I_i(t)\big] && \text{預期}\\
+dN_i &\sim \lambda_i(x,N)\,dt\ \Rightarrow\ x\to\mathcal J_i(x) && \text{事件跳躍}
+\end{aligned} \]</div>
+<p>其中 \(\kappa\) 與跳躍映射 \(\mathcal J_i\)、預期算子 \(\mathcal E_i\) 的形式都是模型假設,需要實證決定。</p>
+<div class="layers">
+<div class="layer"><b>L0 雙時間資料層</b><span>所有觀測 \(y\) 記錄 \((t,\tau,\text{來源})\),含實體解析,把不同資料中的同一公司、同一機構對應起來。</span></div>
+<div class="layer"><b>L1 會計骨架</b><span>\(C,R\) 的多層網路。硬約束層,不學習,只用恆等式與清算不動點。任何上層輸出都要投影回這裡。</span></div>
+<div class="layer"><b>L2 結構層</b><span>投入產出、合約現金流、容量 \(c_{ij}\)。緩慢更新,多數可由文件與條款直接算。</span></div>
+<div class="layer"><b>L3 行為層</b><span>學習 \(J^{\rm disc},\ \beta,\ \mathcal E_i\)。唯一大量使用機器學習的一層,輸入受 L1 約束,每個尺度分開訓練。</span></div>
+<div class="layer"><b>L4 事件與臨界層</b><span>估計 \(\lambda_i,\ M,\ G,\ g\),輸出 \(g_{\max}\) 與最脆弱路徑。</span></div>
+<div class="layer"><b>L5 同化引擎</b><span>粒子或系綜濾波給出 \(\hat x(t\mid\tau)\),含不確定度。</span></div>
+<div class="layer"><b>L6 操作介面</b><span>時間旋鈕 \(t,\tau\),介入 \(\mathrm{do}(u)\),系綜預測機率分布,以及模型採用率 \(s\) 的反身性修正。</span></div>
+</div>
+<p>這個分層的設計原則是,確定性越高的東西放越底層,可學習的東西壓到最小範圍。這和把全部資料餵進單一大模型的做法相反。理由來自第 9 節,單一大模型在慢尺度的樣本不足以支撐它的參數量。</p>
+
+<h2><span class="n">11 可否證的預測</span>理論要先在哪裡可能失敗</h2>
+<p>每條都寫明什麼結果代表我錯了。P1 與 P6 已於 2026-11-01 依預先登錄檢驗,其餘尚未檢驗。</p>
+<div class="pred"><span class="pid">P1 槓桿放大</span><p>相同外生衝擊下,跌幅隨受迫部位除以深度的 \(g\) 上升,而且在大衝擊時呈次線性飽和。可先用加密貨幣的未平倉量、清算與訂單簿資料檢驗。</p><p class="fail">否證條件:控制衝擊後,跌幅與 g 無關,或完全呈線性而沒有飽和。</p><p><b>結果(2026-11-01,預先登錄後檢驗)</b>:BTC 15 分鐘下跌 0.75% 以上的 598 個事件、當月前 20 名的 181 個幣、11,908 列。G 取事件前未平倉名目除以買方 1% 深度。幣內 log G 每高一個標準差,山寨幣對 BTC 的反應比增加 0.164(自助法 SE 0.055,p = 0.0025),加事件固定效果後 +0.041(p = 0.064),前後兩段皆正,高於 1000 次置換的全部結果;依 G 五分位反應比 1.22 升到 1.48。主預測通過。比值結構不通過:未平倉彈性 +0.278、深度彈性 -0.123,兩者之和的 95% 區間 [0.056, 0.309] 不含 0,未平倉量的作用約為深度的兩倍。飽和交互項 +1.2、SE 4.6,衝擊多在 1% 上下,沒有檢定力。探索性:60 分鐘後效果仍在(+0.43),上漲事件不放大(-0.18,不顯著)。限制:大半效果來自事件之間而非事件內的幣間差異,BTC 衝擊不完全外生,沒有清算資料。報告在 交易AI機器人\research\P1_槓桿放大_結果_2026-11-01.md。</p></div>
+<div class="pred"><span class="pid">P2 守恆同化</span><p>故意遮蔽某部門的資金流量資料,用其他部門加恆等式推估,誤差應小於只用該部門自身歷史的外推。</p><p class="fail">否證條件:約束推估不優於單純外推,代表統計誤差大到約束沒有實際價值。</p></div>
+<div class="pred"><span class="pid">P3 alpha 衰減</span><p>公開訊號的超額報酬應隨跟隨資金依 \(r_0/(1+s\lambda)\) 下降。</p><p class="fail">否證條件:報酬與資金規模無關,或衰減形式明顯不同。</p></div>
+<div class="pred"><span class="pid">P4 臨界接近</span><p>估計的分支比上升時,違約或爆倉規模的尾部變厚,且接近 \(-1/2\) 斜率。</p><p class="fail">否證條件:分支比的變化不領先尾部變化,或尾部不隨分支比改變。</p></div>
+<div class="pred"><span class="pid">P5 隱藏變數</span><p>加入原本未納入的庫存或融資變數後,其他變數殘差的長記憶應明顯縮短。</p><p class="fail">否證條件:長記憶完全不變,代表它不來自被積分掉的變數。</p></div>
+<div class="pred"><span class="pid">P6 預測時限階層</span><p>各變數的預測能力應有清楚的衰減時限,且總體信用類變數長於價格類變數,資料變好時時限只呈對數增加。</p><p class="fail">否證條件:所有尺度都沒有超過基準模型的預測能力,此時整個系統的前提不成立。</p><p><b>結果(2026-11-01,預先登錄後檢驗)</b>:7 個大幣、四個尺度(1h、4h、1d、1w)、六個變數、距離 1 到 21 根 bar,只用自身落後項的走動式樺迴歸對訓練期平均算樣本外 R²。價格報酬在四個尺度、所有距離的 R² 全為負,連 1h 的下一根也沒有;對數實現變異的時限在 1h、4h、1d 尺度都超過 21 根上限(R² 從 0.13、0.40、0.51 衰減到 0.09、0.19、0.25),1w 尺度 13 週,以小時計的時限隨 bar 長度等比拉長;資金費率與未平倉水準偏離同樣高度可預測,但未平倉的變化在所有尺度都不可預測。四個判定中 P6a(價格不可預測)、P6b(慢變數日尺度 T_p ≥ 3)、P6d 通過;P6c 形式上不通過,因為週尺度的未平倉偏離只有約 135 根 bar 不足以估計,其餘三個尺度皆成立。解讀:可預測的是系統「在哪裡」(波動、槓桿、費率的水準),不是「往哪走」(價格與槓桿的變化)。報告在 交易AI機器人\research\P6_可預測時限_結果_2026-11-01.md。</p></div>
+<p>P1 已做。第 6 節的 g 要改寫成 g = OI^a / K^b 再估 a、b,或改用清算資料直接量受迫部位;飽和要等 3% 以上的大衝擊樣本累積。P6 也已做,結論是系統的預測目標要改為帶時限的狀態估計,價格方向只能來自狀態對外生衝擊的條件反應(P1 那種),不能來自時間序列外推。下一步是第 12 節末的第二版待辦。</p>
+
+<h2><span class="n">12 未解決</span>目前的理論還缺什麼</h2>
+<p><span class="tag t-op">未解決</span>效用 \(U\) 與預期 \(\mathcal E_i\) 的形式。整個行為層目前只有框架,這是最大的缺口。</p>
+<p><span class="tag t-op">未解決</span>價值的定義。\(\sum W_i=p\cdot\sum R_i\) 用價格衡量價值,但你講的「創造」可能指更本質的東西。若用價格定義,泡沫也算創造價值,這個理論還無法區分兩者。</p>
+<p><span class="tag t-op">未解決</span>結構改變。\(\theta\) 假設緩慢變化,但技術革命和戰爭可能讓整個方程式形式改變,這在氣象中沒有對應物。</p>
+<p><span class="tag t-op">未解決</span>跨層耦合矩陣的估計。統一形式的 \(g_{\max}\) 在數學上很漂亮,但要估它需要的資料可能根本不公開,例如場外衍生品曝險。</p>
+<p><span class="tag t-op">未解決</span>資訊層與政治層。我只把政治當成容量和事件,這可能過度簡化。政治關係本身也是動力系統,會回應經濟狀態。</p>
+<p><span class="tag t-op">未解決</span>觀測覆蓋率。多數私人企業、個人與場外資金不可見,\(h\) 的覆蓋率會決定同化能否收斂。</p><h3>第二版待辦(2026-11-01)</h3><p>第一版有三個地方是紫外災難式的發散,缺的不是修正項而是截止假設。第一,第 3 節的最大熵分配只約束平均效用,形式上就是能量均分定理;金融選項可以無限創造,熵沒有上界,現實靠注意力與資產負債表容量截止。要改成容量約束下的最大熵,P1 發現未平倉量(已承諾的容量)比深度重要兩倍,是這個方向的證據。第二,連續流量假設每條邊有很多小參與者,真實網路由少數巨大節點主導,雜訊不隨節點數變小;節點大小分布要當狀態,熱尾可能從這裡來。第三,\(1/(1-g)\) 在 \(g\to1\) 發散,但模擬與 P1 資料都看不到發散,因為破產、熔斷、追繳延遲都是截止。</p><p>還要加進來的項:時間延遲(結算、財報、決策滞後讓方程式變成延遲微分方程,即使瞬時係數穩定也會振盪,信用循環的週期可能來自這裡);高階預期(參與者猜別人怎麼猜,第 5 節只有一階);信任這類平常不動、崩潰時不連續的慢變數,放在預期算子的跳躍項;勞動與人口層,人的時間是比會計恆等式更硬的守恆量;物理開放性,能源與物質的流入流出限制資源層的源項;制度內生,法規會被經濟狀態改變;量測反作用,會計規則改變的不只是 \(h\),還有抵押品價值。最急的是容量截止與延遲,一個決定分配形式,一個決定週期。</p>
+
+<h2><span class="n">13 第二版</span>三個截止假設</h2>
+<p>2026-11-06。第 12 節末列的發散,這裡各給一個截止,每個都附推導、數值驗證與可否證的預測。驗證程式 verify_v2.py,結果 results_v2.json。</p>
+
+<h3>13.1 容量約束下的最大熵分配</h3>
+<p><span class="tag t-co">條件定理</span>第 3 節的裁量流在每個選項加上容量上限 \(\pi_j\le c_j\)。拉格朗日函數多了 \(\sum_j\mu_j(c_j-\pi_j)\),\(\mu_j\ge0\),一階條件 \(-\ln\pi_j-1+\alpha+\beta U_j-\mu_j=0\)。未觸及上限的選項 \(\mu_j=0\),仍是 Boltzmann;觸及的選項停在 \(c_j\)。解是</p>
+<div class="eq">\[ \pi_j=\min\!\Big(c_j,\ \frac{e^{\beta U_j}}{Z}\Big),\qquad Z \text{ 由 } \sum_j\pi_j=1 \text{ 決定} \]</div>
+<p>這就是普朗克截止的對應物。對效用變化的敏感度,未飽和者為 \(\partial\pi_j/\partial U_j\approx\beta\pi_j(1-\pi_j)\),飽和者為零。推論有兩條。第一,填滿後外溢,最好的選項效用再高,流量也不增加,多出來的資金依 Boltzmann 比例流向次佳選項。第二,敏感度不對稱,當多頭已經把某資產的容量擠滿(未平倉高),對利多的反應受限,對利空的反應則因受迫平倉而放大。P1 的探索性結果(上漲事件 zG 係數 \(-0.18\)、下跌 \(+0.16\))方向一致,但那是事後看到的,不能當證據。</p>
+<div class="check"><span class="h">V1 驗證 8 個選項,最佳選項容量 0.12</span>數值最佳化與閉式解最大差異 1.2e-8;兩個選項飽和;最佳選項效用加 1 後份額仍為 0.12,敏感度為零。</div>
+
+<h3>13.2 延遲</h3>
+<p><span class="tag t-co">條件定理</span>第 6 節的槓桿調整不是瞬時的,保證金追繳、財報、決策都有滯後 \(D\)。令槓桿偏離目標為 \(\ell\),機構以速率 \(k\) 依 \(D\) 以前的偏離調整,價格回饋把有效增益放大成 \(\kappa=k/(1-g)\)</p>
+<div class="eq">\[ \dot\ell(t)=-\kappa\,\ell(t-D),\qquad \lambda=-\kappa e^{-\lambda D}\ \Rightarrow\ \lambda=\frac{W(-\kappa D)}{D} \]</div>
+<p>\(W\) 是 Lambert 函數。令 \(\lambda=i\omega\) 得到中性穩定的條件 \(\kappa D=\pi/2\),\(\omega D=\pi/2\)。因此</p>
+<div class="eq">\[ g_c=1-\frac{2kD}{\pi}<1,\qquad T_{\rm osc}=4D \]</div>
+<p>這改變了第 6 節的結論。有延遲時系統在 \(g=1\) 之前就失穩,臨界值被延遲往下拉;而且失穩的形式是振盪,週期正好是延遲的四倍。信用循環的週期性可能根本來自這裡,而不需要任何外生週期。加上賣出不能超過持有這個截止後,發散變成有界的極限環。</p>
+<div class="check"><span class="h">V2 驗證 k=1, D=1,g_c 理論 0.3634</span>g=0.2:增長率理論 −0.1617、模擬 −0.1613,週期 4.302 對 4.303。g=g_c:增長率 3.6e-4,週期 4.001 對 4。g=0.5:增長率 0.1728 對 0.1731,週期 3.754 對 3.756。g=0.5 加截止後振幅停在 2.48,最大 |x| 1.48,不再發散。</div>
+
+<h3>13.3 粒度</h3>
+<p><span class="tag t-co">條件定理</span>總體衝擊是各節點衝擊的大小加權和,\(\epsilon=\sum_iw_i\epsilon_i\),\(w_i=s_i/\sum s\)。若節點大小服從尾指數 \(\alpha<2\) 的冪律,\(\sum s_i^2\) 由最大者主導而與 \(N^{2/\alpha}\) 同階,於是</p>
+<div class="eq">\[ \sigma_{\rm agg}\sim N^{\,1/\alpha-1}\quad(\alpha<2),\qquad \sigma_{\rm agg}\sim N^{-1/2}\quad(\alpha\ge2) \]</div>
+<p>\(\alpha\to1\) 時總體波動幾乎不隨節點數下降,連續流假設的大數法則失效。少數巨大節點的個別衝擊就是總體衝擊,所以節點大小分布必須當成狀態的一部分。</p>
+<div class="check"><span class="h">V3 驗證 N = 10² 到 10⁵</span>α=1.5 斜率模擬 −0.329、理論 −0.333;α=3 為 −0.493 對 −0.5;等大小 −0.500。α=1.1 模擬 −0.172、理論 −0.091,偏差來自有限樣本,α 接近 1 時收斂極慢,這條漸近式在實務 N 下只能當上界。</div>
+
+<h3>13.4 第二版的封閉方程組改動</h3>
+<p>裁量流改為 \(J^{\rm disc}_{ij}=B_i\min(c_{ij},e^{\beta U_{ij}}/Z_i)\);所有本構關係改為取 \(x(t-D_{ij})\),延遲依邊而異;狀態多一個節點大小分布 \(\{s_i\}\),總體雜訊方差由 \(\sum w_i^2\) 給出而不是 \(1/N\)。第 10 節 L2 結構層多一項工作,估每條邊的容量 \(c_{ij}\) 與延遲 \(D_{ij}\)。</p>
+
+<h3>13.5 新的可否證預測</h3>
+<div class="pred"><span class="pid">P7 容量不對稱</span><p>未平倉相對深度(G)高時,對同幅度下跌衝擊的反應放大,對上漲衝擊不放大,\(b_{\rm down}-b_{\rm up}>0\)。因為 P1 的前 20 名幣已經看過方向,改用第 21 到 50 名當橫斷面保留樣本,登錄在 交易AI機器人\research\experiments\P7_容量不對稱_預先登錄_2026-11-06.md。</p><p class="fail">否證條件:保留樣本的不對稱係數不為正或不顯著。</p></div>
+<div class="pred"><span class="pid">P8 延遲週期</span><p>信用或槓桿變數的振盪週期約為調整延遲的四倍,且系統在 \(g<1\) 就失穩。需要獨立量到 \(D\)(例如追繳到實際平倉的時間差)才能檢驗,目前沒有這個資料。</p><p class="fail">否證條件:量到 \(D\) 後,週期與 \(4D\) 無關。</p></div>
+<div class="pred"><span class="pid">P9 粒度</span><p>市場總體變異中由最大幾個節點的個別衝擊貢獻的份額,高於等權假設下的 \(k/N\)。可用幣別市值權重與個別殘差做,未做。</p><p class="fail">否證條件:總體變異隨節點數以 \(N^{-1/2}\) 下降。</p></div>
+
+<p style="margin-top:48px;color:var(--muted);font-size:14px">驗證程式 Desktop\市場計算理論\verify_theory.py 與 verify_v2.py,結果 results.json 與 results_v2.json。固定亂數種子,可重現。</p>
+</div>
+
+</body></html>
